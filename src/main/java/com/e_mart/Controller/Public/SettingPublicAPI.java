@@ -30,19 +30,31 @@ public class SettingPublicAPI {
 		dto.setBrands(brandService.getNumberOfBrands());
 
 		if (s != null) {
-			dto.setSiteName(s.getSiteName());
-			dto.setAddressOne(s.getAddressOne());
-			dto.setAddressTwo(s.getAddressTwo());
-			dto.setMapOne(s.getMapOne());
-			dto.setMapTwo(s.getMapTwo());
-			dto.setEmail(s.getEmail());
-			dto.setPhone(s.getPhone());
-			dto.setWhatsapp(s.getWhatsapp());
-			dto.setLinkedIn(s.getLinkedIn());
-			dto.setGitHub(s.getGitHub());
-			dto.setInstagram(s.getInstagram());
+			dto.setSiteName(s.getSiteName() != null ? s.getSiteName() : "");
+			dto.setAddressOne(s.getAddressOne() != null ? s.getAddressOne() : "");
+			dto.setAddressTwo(s.getAddressTwo() != null ? s.getAddressTwo() : "");
+			dto.setMapOne(s.getMapOne() != null ? s.getMapOne() : "");
+			dto.setMapTwo(s.getMapTwo() != null ? s.getMapTwo() : "");
+			dto.setEmail(s.getEmail() != null ? s.getEmail() : "");
+			dto.setPhone(s.getPhone() != null ? s.getPhone() : "");
+			dto.setWhatsapp(s.getWhatsapp() != null ? s.getWhatsapp() : "");
+			dto.setLinkedIn(s.getLinkedIn() != null ? s.getLinkedIn() : "");
+			dto.setGitHub(s.getGitHub() != null ? s.getGitHub() : "");
+			dto.setInstagram(s.getInstagram() != null ? s.getInstagram() : "");
 			dto.setCustomer(s.getCustomer());
 			dto.setRefund(s.getRefund());
+		} else {
+			dto.setSiteName("");
+			dto.setAddressOne("");
+			dto.setAddressTwo("");
+			dto.setMapOne("");
+			dto.setMapTwo("");
+			dto.setEmail("");
+			dto.setPhone("");
+			dto.setWhatsapp("");
+			dto.setLinkedIn("");
+			dto.setGitHub("");
+			dto.setInstagram("");
 		}
 
 		return dto;
