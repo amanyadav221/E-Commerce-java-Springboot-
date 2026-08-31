@@ -9,6 +9,6 @@ import com.e_mart.Entity.ProductImage;
 
 @Repository
 public interface ProductImgRepo extends JpaRepository<ProductImage, Long>{
-	public List<ProductImage> findByFileTypeAndFileData(String fileType,String fileData);
+	public List<ProductImage> findByFileTypeAndFileData(String fileType, byte[] fileData);
 
 }
