@@ -18,7 +18,6 @@ import com.e_mart.Entity.MainCatagoryClass;
 
 import com.e_mart.Service.MainCategoryService;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController 
 @RequestMapping("/admin/main-cat")
 public class MainCatAPI {
