@@ -25,7 +25,7 @@ public class FaqAPI {
 	private FaqService faqService;
 	
 	@PostMapping("/add")
-	private ResponseEntity<String> addFaq(
+	public ResponseEntity<String> addFaq(
 			@RequestBody	Faq faq){
 		System.out.println(faq);
 		List<Faq> x=faqService.getByName(faq.getQuestion());

@@ -28,7 +28,7 @@ public class SubCatPublicAPI {
 	private SubCategoryService service;
 
 	@GetMapping("/get")
-	private ResponseEntity<List<String>> getSubData(){
+	public ResponseEntity<List<String>> getSubData(){
 		List<SubCategory> cat=service.getData();
 		List<String> str=new ArrayList<>();
 		for(SubCategory c :cat) {
@@ -44,7 +44,7 @@ public class SubCatPublicAPI {
 	
 	
 	@GetMapping("/get-all")
-	private ResponseEntity<List<SubCategoryDTO>> getAll(){
+	public ResponseEntity<List<SubCategoryDTO>> getAll(){
 		System.out.println("Getting all sub cat.....");
 		List<SubCategory> cat=service.getData();
 		List<SubCategoryDTO> response = cat.stream().map(c -> {

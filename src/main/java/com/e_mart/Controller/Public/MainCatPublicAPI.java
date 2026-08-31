@@ -31,7 +31,7 @@ public class MainCatPublicAPI {
 	
 	//return only name
 	@GetMapping("/get-main-cat")
-	private ResponseEntity<List<String>> getData(){
+	public ResponseEntity<List<String>> getData(){
 		List<MainCatagoryClass> cat=service.getData();
 		List<String> str=new ArrayList<>();
 		for(MainCatagoryClass c :cat) {
@@ -48,7 +48,7 @@ public class MainCatPublicAPI {
 	
 	
 	@GetMapping("/get-all")
-	private ResponseEntity<List<MainCatagoryDTO>> getAll(){
+	public ResponseEntity<List<MainCatagoryDTO>> getAll(){
 		List<MainCatagoryClass> cat=service.getData();
 		List<MainCatagoryDTO> response = cat.stream().map(c -> {
 	        MainCatagoryDTO dto = new MainCatagoryDTO();

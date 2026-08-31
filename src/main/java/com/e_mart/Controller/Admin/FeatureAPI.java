@@ -29,7 +29,7 @@ public class FeatureAPI {
 	private FeatureService service;
 	
 	@PostMapping("/add")
-	private ResponseEntity<String> addFeature(
+	public ResponseEntity<String> addFeature(
 			@RequestBody	Feature feature){
 		System.out.println(feature);
 		List<Feature> x=service.getByName(feature.getName());

@@ -27,7 +27,7 @@ public class FeaturePublicAPI {
 
 	
 	@GetMapping("/get")
-	private ResponseEntity<?> getFeature(){
+	public ResponseEntity<?> getFeature(){
 		List<Feature> cat=service.getAllData();
 		List<Long> str=new ArrayList<>();
 		for(Feature c :cat) {
@@ -40,7 +40,7 @@ public class FeaturePublicAPI {
 	
 	
 	@GetMapping("/get-all")
-	private ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll(){
 		System.out.println("Getting all Feature.....");
 		List<Feature> cat=service.getAllData();
 		List<FeatureDTO> response = cat.stream().map(c -> {
@@ -62,7 +62,7 @@ public class FeaturePublicAPI {
 	
 	
 	@GetMapping("/get/{name}")
-	private ResponseEntity<List<Feature>> getUniques(@PathVariable String name){
+	public ResponseEntity<List<Feature>> getUniques(@PathVariable String name){
 		List<Feature> cat=service.getByName(name);
 		//System.out.println("Get By Name Triggered!!!!!!!!   in   get/name"+name+cat);
 //		List<String> catName=new ArrayList<>();

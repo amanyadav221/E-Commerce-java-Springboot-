@@ -31,7 +31,7 @@ public class BrandPublicAPI {
 	private BrandService service;
 	
 	@GetMapping("/get")
-	private ResponseEntity<List<String>> getBrand(){
+	public ResponseEntity<List<String>> getBrand(){
 		List<Brand> cat=service.getAllData();
 		List<String> str=new ArrayList<>();
 		for(Brand c :cat) {
@@ -47,7 +47,7 @@ public class BrandPublicAPI {
 	
 	
 	@GetMapping("/get-all")
-	private ResponseEntity<List<BrandDTO>> getAll(){
+	public ResponseEntity<List<BrandDTO>> getAll(){
 		System.out.println("Getting all brand.....");
 		List<Brand> cat=service.getAllData();
 		List<BrandDTO> response = cat.stream().map(c -> {
@@ -69,7 +69,7 @@ public class BrandPublicAPI {
 	
 
 	@GetMapping("/get/{name}")
-	private ResponseEntity<Brand> getUniques(@PathVariable String name){
+	public ResponseEntity<Brand> getUniques(@PathVariable String name){
 		Brand cat=service.getByName(name);
 		//System.out.println("Get By Name Triggered!!!!!!!!   in   get/name"+name+cat);
 //		List<String> catName=new ArrayList<>();

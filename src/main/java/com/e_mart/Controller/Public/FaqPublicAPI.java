@@ -25,7 +25,7 @@ public class FaqPublicAPI {
 
 	
 	@GetMapping("/get")
-	private ResponseEntity<?> getFaq(){
+	public ResponseEntity<?> getFaq(){
 		List<Faq> cat=faqService.getAllData();
 		List<String> str=new ArrayList<>();
 		for(Faq c :cat) {
@@ -38,7 +38,7 @@ public class FaqPublicAPI {
 	
 	
 	@GetMapping("/get-all")
-	private ResponseEntity<List<FaqDTO>> getAll(){
+	public ResponseEntity<List<FaqDTO>> getAll(){
 		System.out.println("Getting all Feature.....");
 		List<Faq> cat=faqService.getAllData();
 		List<FaqDTO> response = cat.stream().map(c -> {

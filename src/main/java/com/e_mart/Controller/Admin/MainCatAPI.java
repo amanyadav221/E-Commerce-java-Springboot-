@@ -29,7 +29,7 @@ public class MainCatAPI {
 
 	@PostMapping( value = "/add",
 			  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity<String> addMainCategory(
+	public ResponseEntity<String> addMainCategory(
 			@RequestPart
 			MainCatagoryClass mainCategory,
 			@RequestPart MultipartFile file){

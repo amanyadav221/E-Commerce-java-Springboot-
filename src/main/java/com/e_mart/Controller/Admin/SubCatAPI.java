@@ -28,7 +28,7 @@ public class SubCatAPI {
 	
 	@PostMapping( value = "/add",
 			  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity<String> addSubCategory(
+	public ResponseEntity<String> addSubCategory(
 			@RequestPart
 			SubCategory subCat,
 			@RequestPart MultipartFile file){

@@ -27,7 +27,7 @@ public class BrandAPI {
 	
 	@PostMapping( value = "/add",
 			  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity<String> addBrand(
+	public ResponseEntity<String> addBrand(
 			@RequestPart
 			Brand brand,
 			@RequestPart MultipartFile file){
