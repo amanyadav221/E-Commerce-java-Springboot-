@@ -63,10 +63,10 @@ public class OtpPublicAPI {
         boolean emailSent = emailService.sendOtpEmail(recipientEmail, otp);
 
         if (emailSent) {
-            return ResponseEntity.ok("OTP sent successfully to " + recipientEmail);
+            return ResponseEntity.ok("Real OTP sent successfully to your Gmail inbox (" + recipientEmail + ")!");
         } else {
-            // Fallback for demo if SMTP fails
-            return ResponseEntity.ok("OTP Generated: " + otp + " (Sent to " + recipientEmail + ")");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to send OTP to Gmail inbox. Please check server SMTP configuration.");
         }
     }
 
@@ -103,6 +103,6 @@ public class OtpPublicAPI {
         // Remove OTP from cache
         otpCache.remove(user.getEmail().toLowerCase());
 
-        return ResponseEntity.ok("Password reset successfully! You can now login.");
+        return ResponseEntity.ok("Password reset successfully! You can now login with your new password.");
     }
 }
