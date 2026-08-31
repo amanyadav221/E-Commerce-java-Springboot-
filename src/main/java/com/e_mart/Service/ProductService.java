@@ -98,8 +98,7 @@ public class ProductService {
 
     private ProductDTO.ImageDTO convertImage(ProductImage image) {
 
-        String base64 = Base64.getEncoder()
-                .encodeToString(image.getFileData());
+        String base64 = image.getFileData() != null ? Base64.getEncoder().encodeToString(image.getFileData()) : "";
 
         return new ProductDTO.ImageDTO(
                 image.getId(),           // ✅ return image id

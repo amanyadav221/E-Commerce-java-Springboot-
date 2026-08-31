@@ -56,7 +56,7 @@ public class SubCatPublicAPI {
 	        dto.setFileType(c.getFileType());
 
 	        dto.setFile(
-	            Base64.getEncoder().encodeToString(c.getFileData())
+	            c.getFileData() != null ? Base64.getEncoder().encodeToString(c.getFileData()) : ""
 	        );
 
 	        return dto;
