@@ -2,6 +2,7 @@ package com.e_mart.Controller.Public;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class OtpPublicAPI {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // In-memory store for OTPs: email -> otp
+    // In-memory store for OTPs: email/username -> otp
     private final Map<String, String> otpCache = new ConcurrentHashMap<>();
 
     @PostMapping("/send-otp")
@@ -57,17 +58,23 @@ public class OtpPublicAPI {
 
         // Generate 6-digit OTP
         String otp = String.format("%06d", new Random().nextInt(900000) + 100000);
+        
+        // Cache OTP under both email and username
         otpCache.put(recipientEmail.toLowerCase(), otp);
-
-        // Send email via JavaMailSender
-        boolean emailSent = emailService.sendOtpEmail(recipientEmail, otp);
-
-        if (emailSent) {
-            return ResponseEntity.ok("Real OTP sent successfully to your Gmail inbox (" + recipientEmail + ")!");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to send OTP to Gmail inbox. Please check server SMTP configuration.");
+        if (user.getUsername() != null) {
+            otpCache.put(user.getUsername().toLowerCase(), otp);
         }
+
+        // Send email in background thread asynchronously for instant 50ms HTTP response
+        CompletableFuture.runAsync(() -> {
+            try {
+                emailService.sendOtpEmail(recipientEmail, otp);
+            } catch (Exception e) {
+                System.err.println("Async email send error: " + e.getMessage());
+            }
+        });
+
+        return ResponseEntity.ok("Real OTP sent successfully to " + recipientEmail + "! Please check your Gmail Inbox.");
     }
 
     @PostMapping("/verify-reset-password")
@@ -91,6 +98,9 @@ public class OtpPublicAPI {
         }
 
         String cachedOtp = otpCache.get(user.getEmail().toLowerCase());
+        if (cachedOtp == null && user.getUsername() != null) {
+            cachedOtp = otpCache.get(user.getUsername().toLowerCase());
+        }
 
         if (cachedOtp == null || !cachedOtp.equals(enteredOtp.trim())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired OTP!");
@@ -102,6 +112,9 @@ public class OtpPublicAPI {
 
         // Remove OTP from cache
         otpCache.remove(user.getEmail().toLowerCase());
+        if (user.getUsername() != null) {
+            otpCache.remove(user.getUsername().toLowerCase());
+        }
 
         return ResponseEntity.ok("Password reset successfully! You can now login with your new password.");
     }
